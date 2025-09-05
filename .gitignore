@@ -59,3 +59,7 @@ spy.log
 
 # Security - 不要上傳敏感資訊
 **/application-prod.yml
+
+# Claude AI 設定檔
+.claude/
+*.claude

@@ -38,6 +38,8 @@ spring:
     # schemas: userms_dev
     table: flyway_schema_history
     create-schemas: false
+    encoding: UTF-8
+    sql-migration-suffixes: .sql
 
 # p6spy SQL 監控配置（開發階段啟用）
 # 如需啟用，將上方 datasource 配置改為：
