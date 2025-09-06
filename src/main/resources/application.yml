@@ -48,10 +48,10 @@ spring:
 
   # Spring Security 基本配置
   security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: ${JWT_ISSUER_URI:http://localhost:8080}
+    user:
+      # 禁用預設使用者
+      name: disabled
+      password: disabled
 
   # JSON 處理配置
   jackson:
@@ -102,4 +102,38 @@ springdoc:
     path: /swagger-ui.html
     operations-sorter: method
     tags-sorter: alpha
+    try-it-out-enabled: true
+    filter: true
+    display-request-duration: true
+    disable-swagger-default-url: true
+    doc-expansion: none
   show-actuator: false
+  use-fqn: true
+
+# 應用程式配置
+app:
+  name: ${spring.application.name}
+  version: 1.0.0
+  
+  # JWT 配置
+  jwt:
+    secret: ${JWT_SECRET:UserManagementSystemSecretKeyForJWTTokenGeneration2024}
+    expiration: ${JWT_EXPIRATION:86400000}  # 24 小時 (毫秒)
+  
+  # API 文檔配置
+  api:
+    title: Spring Boot User Management System API
+    description: Enterprise-grade user management system RESTful API documentation
+    version: ${app.version}
+    contact:
+      name: Development Team
+      email: developer@userms.com
+      url: https://github.com/your-username/spring-boot-user-management
+    license:
+      name: MIT License
+      url: https://opensource.org/licenses/MIT
+  
+  # 服務器配置
+  server:
+    dev-url: http://localhost:${server.port}${server.servlet.context-path}
+    prod-url: https://api.userms.com${server.servlet.context-path}

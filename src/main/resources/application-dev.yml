@@ -1,11 +1,11 @@
 # 開發環境配置
 spring:
   datasource:
-    # 注意：Oracle 21c 使用 PDB 連線方式
-    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    # 注意：Oracle 21c 使用 PDB 連線方式，啟用 p6spy SQL 監控
+    url: jdbc:p6spy:oracle:thin:@localhost:1521/XEPDB1
     username: userms_dev
     password: DevPassword123
-    driver-class-name: oracle.jdbc.OracleDriver
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 
     # 連線池配置
     hikari:
@@ -41,10 +41,9 @@ spring:
     encoding: UTF-8
     sql-migration-suffixes: .sql
 
-# p6spy SQL 監控配置（開發階段啟用）
-# 如需啟用，將上方 datasource 配置改為：
-# url: jdbc:p6spy:oracle:thin:@localhost:1521/XEPDB1
-# driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+# p6spy SQL 監控已啟用
+# 使用 com.p6spy.engine.spy.P6SpyDriver 作為代理驅動
+# 實際的 SQL 監控配置在 spy.properties 中
 
 logging:
   level:

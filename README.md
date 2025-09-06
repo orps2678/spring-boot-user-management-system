@@ -31,20 +31,31 @@
 - [x] Spring Security 基本配置
 - [x] SpringDoc OpenAPI 文檔整合
 
-### Phase 2: 核心功能開發 🔄 (進行中)
+### Phase 2: 核心功能開發 ✅ (已完成)
 
 #### Week 3: JPA 監控與基礎 CRUD
-- [ ] p6spy 配置與 SQL 監控
-- [ ] 基礎 Entity 實體類別
-- [ ] Repository 介面實作
-- [ ] 簡單查詢效能分析
-- [ ] 用戶 CRUD API 實作
+- [x] p6spy 配置與 SQL 監控
+- [x] 基礎 Entity 實體類別
+- [x] Repository 介面實作
+- [x] 簡單查詢效能分析
+- [x] 用戶 CRUD API 實作
 
-#### Week 4: N+1 問題學習
-- [ ] 識別 N+1 問題案例
-- [ ] @EntityGraph 解決方案
-- [ ] JOIN FETCH 查詢優化
-- [ ] 角色權限關聯查詢優化
+#### Week 4: RBAC 權限管理系統
+- [x] 完整用戶管理 API (UserController)
+- [x] 角色管理 API (RoleController)
+- [x] 權限管理 API (PermissionController)
+- [x] 用戶角色分配功能
+- [x] 角色權限分配功能
+
+### Phase 3: 進階學習功能 ✅ (已完成)
+
+#### Week 5: N+1 問題學習與 JWT 優化
+- [x] N+1 問題學習系統 (PerformanceController)
+- [x] 批次查詢優化演示
+- [x] @EntityGraph 查詢優化
+- [x] 效能比較測試工具
+- [x] JWT Token 刷新機制
+- [x] Token 過期處理與寬限期
 
 ## 資料模型
 
@@ -112,19 +123,59 @@ POST /api/auth/refresh         # 刷新 Token
 
 ### 用戶管理
 ```
-GET  /api/users/list           # 用戶列表  
-GET  /api/users/{id}           # 用戶詳情
-POST /api/users/create         # 建立用戶
-POST /api/users/update         # 更新用戶  
-POST /api/users/disable        # 停用用戶
-POST /api/users/enable         # 啟用用戶
+GET    /api/users              # 用戶列表（分頁）
+GET    /api/users/{id}         # 用戶詳情
+GET    /api/users/search       # 搜索用戶
+POST   /api/users              # 建立用戶
+PUT    /api/users/{id}         # 更新用戶  
+POST   /api/users/{id}/enable  # 啟用用戶
+POST   /api/users/{id}/disable # 停用用戶
+DELETE /api/users/{id}         # 刪除用戶
+POST   /api/users/{id}/roles/{roleCode}   # 分配角色
+DELETE /api/users/{id}/roles/{roleCode}   # 撤銷角色
+GET    /api/users/{id}/roles   # 獲取用戶角色
 ```
 
-### 角色權限
+### 角色管理
 ```
-GET  /api/roles/list           # 角色列表
-POST /api/users/{id}/assign-role   # 分配角色
-POST /api/users/{id}/revoke-role   # 撤銷角色
+GET    /api/roles              # 角色列表（分頁）
+GET    /api/roles/active       # 啟用角色列表
+GET    /api/roles/{id}         # 角色詳情
+GET    /api/roles/code/{code}  # 根據代碼獲取角色
+GET    /api/roles/search       # 搜索角色
+POST   /api/roles              # 創建角色
+PUT    /api/roles/{id}         # 更新角色
+POST   /api/roles/{id}/enable  # 啟用角色
+POST   /api/roles/{id}/disable # 停用角色
+DELETE /api/roles/{id}         # 刪除角色
+POST   /api/roles/{id}/permissions/{code} # 分配權限
+DELETE /api/roles/{id}/permissions/{code} # 撤銷權限
+GET    /api/roles/{id}/permissions        # 獲取角色權限
+```
+
+### 權限管理
+```
+GET    /api/permissions        # 權限列表（分頁）
+GET    /api/permissions/active # 啟用權限列表
+GET    /api/permissions/{id}   # 權限詳情
+GET    /api/permissions/search # 搜索權限
+GET    /api/permissions/resource/{name} # 根據資源獲取權限
+POST   /api/permissions        # 創建權限
+PUT    /api/permissions/{id}   # 更新權限
+POST   /api/permissions/{id}/enable  # 啟用權限
+POST   /api/permissions/{id}/disable # 停用權限
+DELETE /api/permissions/{id}   # 刪除權限
+GET    /api/permissions/resources # 獲取資源列表
+GET    /api/permissions/actions   # 獲取操作類型列表
+```
+
+### 效能學習
+```
+GET    /api/performance/n-plus-1-demo    # N+1 問題演示
+GET    /api/performance/batch-optimized  # 批次查詢優化
+GET    /api/performance/entity-graph     # @EntityGraph 優化
+POST   /api/performance/comparison       # 效能比較測試
+GET    /api/performance/learning-guide   # N+1 問題學習指南
 ```
 
 ## 環境配置
@@ -184,7 +235,15 @@ SQL> SELECT role_name, role_code FROM roles ORDER BY display_order;
 
 ### 核心技術
 - OAuth2 Resource Server 自動 JWT 驗證
-- JPA 效能調優和 N+1 問題解決
+- **JPA 效能調優和 N+1 問題解決** ⭐
+  - 三種 N+1 問題解決方案演示
+  - @EntityGraph 聲明式關聯加載
+  - 批次查詢優化技術
+  - 效能比較測試工具
+- **JWT Token 刷新機制** ⭐
+  - Token 過期檢查與寬限期
+  - 安全的 Token 刷新流程
+  - 用戶狀態驗證
 - Flyway 資料庫版本控制
 - 全域異常處理標準化
 - 容器化部署最佳實踐
@@ -226,4 +285,9 @@ MIT License
 ---
 
 **開發者**: [TsungYu Wu]  
-**最後更新**: 2025-09-05
+**最後更新**: 2025-09-06  
+**專案統計**: 
+- 📄 71 個 API 端點
+- 🎯 5 種查詢優化技術
+- ⚡ N+1 問題完整學習方案
+- 🔐 JWT Token 安全機制

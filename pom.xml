@@ -21,7 +21,9 @@
     <packaging>jar</packaging>
 
     <name>Spring Boot User Management System</name>
-    <description>Enterprise-grade user management system built with Spring Boot 3.x for learning modern Java development practices</description>
+    <description>Enterprise-grade user management system built with Spring Boot 3.x for learning modern Java development
+        practices
+    </description>
     <url>https://github.com/your-username/spring-boot-user-management</url>
 
     <licenses>
@@ -70,6 +72,9 @@
         <springdoc-openapi.version>2.8.12</springdoc-openapi.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <p6spy.version>3.9.1</p6spy.version>
+
+        <!-- JJWT 函式庫-->
+        <jjwt.version>0.13.0</jjwt.version>
 
         <!-- Maven 外掛版本 -->
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
@@ -221,6 +226,29 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>oracle-xe</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- JJWT API -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+
+        <!-- JJWT Implementation -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- JJWT Jackson (JSON處理) -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
